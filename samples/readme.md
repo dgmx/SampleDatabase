@@ -18,7 +18,7 @@ There are 6 tables as follows:
 
 ##### Table "employees"
 
-CREATE TABLE **employees** (
+'''' CREATE TABLE **employees** (
     emp\_no      INT             NOT NULL,  \-- UNSIGNED AUTO\_INCREMENT??
     birth\_date  DATE            NOT NULL,
     first\_name  VARCHAR(14)     NOT NULL,
