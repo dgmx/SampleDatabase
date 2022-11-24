@@ -18,7 +18,7 @@ There are 6 tables as follows:
 
 ##### Table "employees"
 
-'''' CREATE TABLE **employees** (
+    CREATE TABLE **employees** (
     emp\_no      INT             NOT NULL,  \-- UNSIGNED AUTO\_INCREMENT??
     birth\_date  DATE            NOT NULL,
     first\_name  VARCHAR(14)     NOT NULL,
@@ -28,18 +28,18 @@ There are 6 tables as follows:
     PRIMARY KEY (emp\_no)                   \-- Index built automatically on primary-key column
                                            \-- INDEX (first\_name)
                                            -- INDEX (last\_name)
-);
+    );
 
 There are 300,024 records for this table.
 
 ##### Table "departments"
 
-CREATE TABLE **departments** (
+    CREATE TABLE **departments** (
     dept\_no     CHAR(4)         NOT NULL,  \-- in the form of 'dxxx'
     dept\_name   VARCHAR(40)     NOT NULL,
     PRIMARY KEY (dept\_no),                 \-- Index built automatically
     UNIQUE  KEY (dept\_name)                \-- Build INDEX on this unique-value column
-);
+    );
 
 The keyword `KEY` is synonym to `INDEX`. An `INDEX` can be built on unique-value column (`UNIQUE KEY` or `UNIQUE INDEX`) or non-unique-value column (`KEY` or `INDEX`). Indexes greatly facilitates fast search. However, they deplete the performance in `INSERT`, `UPDATE` and `DELETE`. Generally, relational databases are optimized for retrievals, and NOT for modifications.
 
@@ -49,7 +49,7 @@ There are 9 records for this table.
 
 Junction table to support between many-to-many relationship between `employees` and `departments`. A department has many employees. An employee can belong to different department at different dates, and possibly concurrently.
 
-CREATE TABLE **dept\_emp** (
+    CREATE TABLE **dept\_emp** (
     emp\_no      INT         NOT NULL,
     dept\_no     CHAR(4)     NOT NULL,
     from\_date   DATE        NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE **dept\_emp** (
            \-- ON UPDATE CASCADE??
     PRIMARY KEY (emp\_no, dept\_no)
            \-- Might not be unique?? Need to include from\_date
-);
+    );
 
 The foreign keys have `ON DELETE` _reference action_ of `CASCADE`. If a record having a particular key-value from the parent table (employees and departments) is deleted, all the records in this child table having the same key-value are also deleted. Take note that the default `ON DELETE` reference action of is `RESTRICTED`, which disallows `DELETE` on the parent record, if there are matching records in the child table.
 
@@ -77,18 +77,18 @@ There are 331,603 records for this table.
 
 join table to support between many-to-many relationship between `employees` and `departments`. Same structure as `dept_emp`.
 
-CREATE TABLE **dept\_manager** (
-   dept\_no      CHAR(4)  NOT NULL,
-   emp\_no       INT      NOT NULL,
-   from\_date    DATE     NOT NULL,
-   to\_date      DATE     NOT NULL,
-   KEY         (emp\_no),
-   KEY         (dept\_no),
-   FOREIGN KEY (emp\_no)  REFERENCES employees (emp\_no)    ON DELETE CASCADE,
-                                  \-- ON UPDATE CASCADE??
-   FOREIGN KEY (dept\_no) REFERENCES departments (dept\_no) ON DELETE CASCADE,
-   PRIMARY KEY (emp\_no, dept\_no)  \-- might not be unique?? Need from\_date
-);
+    CREATE TABLE **dept\_manager** (
+    dept\_no      CHAR(4)  NOT NULL,
+    emp\_no       INT      NOT NULL,
+    from\_date    DATE     NOT NULL,
+    to\_date      DATE     NOT NULL,
+    KEY         (emp\_no),
+    KEY         (dept\_no),
+    FOREIGN KEY (emp\_no)  REFERENCES employees (emp\_no)    ON DELETE CASCADE,
+                                   \-- ON UPDATE CASCADE??
+    FOREIGN KEY (dept\_no) REFERENCES departments (dept\_no) ON DELETE CASCADE,
+    PRIMARY KEY (emp\_no, dept\_no)  \-- might not be unique?? Need from\_date
+    );
 
 There are 24 records for this table.
 
@@ -107,7 +107,7 @@ CREATE TABLE **titles** (
     PRIMARY KEY (emp\_no, title, from\_date)
        \-- This ensures unique combination. 
        -- An employee may hold the same title but at different period
-);
+     );
 
 There are 443,308 records for this table.
 
@@ -123,7 +123,7 @@ CREATE TABLE **salaries** (
     KEY         (emp\_no),
     FOREIGN KEY (emp\_no) REFERENCES employees (emp\_no) ON DELETE CASCADE,
     PRIMARY KEY (emp\_no, from\_date)
-);
+    );
 
 There are 2,844,047 records for this table.
 
@@ -146,10 +146,10 @@ All the tables have `DEFAULT CHARSET` of `utf8` for internationalization support
 For UTF8 support, we could set the `DEFAULT CHARSET` at the database level as follows:
 
 \-- Enable client program to communicate with the server using utf8 character set
-SET NAMES 'utf8';
+    SET NAMES 'utf8';
 
-DROP DATABASE IF EXISTS \`sakila\`;
-\-- Set the default charset to utf8 for internationalization, use case-insensitive (ci) collation
+    DROP DATABASE IF EXISTS \`sakila\`;
+    \-- Set the default charset to utf8 for internationalization, use case-insensitive (ci) collation
 CREATE DATABASE IF NOT EXISTS \`sakila\` DEFAULT CHARACTER SET utf8 COLLATE utf8\_unicode\_ci;
 USE \`sakila\`;
 
@@ -157,15 +157,15 @@ We could use "`SHOW CREATE DATABASE _databaseName_ \G`" and "`SHOW CREATE TABLE 
 
 ##### Table "actor"
 
-CREATE TABLE **actor** (
-  actor\_id    SMALLINT     UNSIGNED NOT NULL AUTO\_INCREMENT,
+    CREATE TABLE **actor** (
+    actor\_id    SMALLINT     UNSIGNED NOT NULL AUTO\_INCREMENT,
                            \-- 16-bit unsigned int in the range of \[0, 65535\]
-  first\_name  VARCHAR(45)  NOT NULL,
-  last\_name   VARCHAR(45)  NOT NULL,
-  last\_update TIMESTAMP    NOT NULL DEFAULT CURRENT\_TIMESTAMP ON UPDATE CURRENT\_TIMESTAMP,
-  PRIMARY KEY (actor\_id),
-  KEY idx\_actor\_last\_name (last\_name)   \-- To build index (non-unique) on last\_name
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    first\_name  VARCHAR(45)  NOT NULL,
+    last\_name   VARCHAR(45)  NOT NULL,
+     last\_update TIMESTAMP    NOT NULL DEFAULT CURRENT\_TIMESTAMP ON UPDATE CURRENT\_TIMESTAMP,
+    PRIMARY KEY (actor\_id),
+    KEY idx\_actor\_last\_name (last\_name)   \-- To build index (non-unique) on last\_name
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
        \-- Use InnoDB Engine, which supports foreign key and transaction
        -- Use Unicode 'utf8' character set for this table
 
