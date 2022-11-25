@@ -1,8 +1,10 @@
 ## Ejemplos de SQL
 
-MySQL Employees:
+*MySQL Employees:*
 The Employees database is available from Employees DB on GitHub. 
 https://github.com/datacharmer/test_db
 
-You can download a prepackaged archive of the data, or access the information through Git.
+*MySQL's Sample Salika (DVD Rental) Database*
+
+The MySQL's Sample Salika (DVD Rental) Database. It is a complex database with 16 tables. It also illustrates features such as Views, Stored Procedures and Triggers. This is probably the best sample available for studying MySQL databases.
 
