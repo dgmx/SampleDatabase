@@ -1,5 +1,3 @@
-## Ejemplos de SQL
-
 
 ### MySQL's Sample Salika (DVD Rental) Database
 
