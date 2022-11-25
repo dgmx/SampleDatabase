@@ -91,7 +91,7 @@ There are 24 records for this table.
 
 There is a one-to-many relationship between `employees` and `titles`. One employee has many titles (concurrently or at different dates). A `titles` record refers to one employee (via `emp_no`).
 
-CREATE TABLE **titles** (
+    CREATE TABLE **titles** (
     emp\_no      INT          NOT NULL,
     title       VARCHAR(50)  NOT NULL,
     from\_date   DATE         NOT NULL,
@@ -110,7 +110,7 @@ There are 443,308 records for this table.
 
 Similar structure to `titles` table. One-to-many relationship between `employees` and `salaries`.
 
-CREATE TABLE **salaries** (
+    CREATE TABLE **salaries** (
     emp\_no      INT    NOT NULL,
     salary      INT    NOT NULL,
     from\_date   DATE   NOT NULL,
