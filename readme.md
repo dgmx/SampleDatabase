@@ -1,1 +1,1 @@
-## Bases de datos DAM
+## Bases de datos de Ejemplo para practicar con MariaDB
